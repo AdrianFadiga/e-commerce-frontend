@@ -1,4 +1,4 @@
-import Login from './pages/Login';
+import Home from './pages/Home';
 import { Route, Routes } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 
@@ -7,7 +7,7 @@ function App() {
   return (
     <ChakraProvider>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </ChakraProvider>
   );
