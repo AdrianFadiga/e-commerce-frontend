@@ -1,28 +1,27 @@
-import { Box, Container, Flex, Stack } from '@chakra-ui/react';
+import { Box, Container, Flex, HStack } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <Flex
-      backgroundColor="black"
-      color="white"
       as="header"
-      h="8vh"
+      color="white"
       align="center"
+      wrap="wrap"
       justify="space-between"
-      py={3}
-      px={5}
-      borderBottom="1px"
-      borderColor="gray.200"
+      w="100%"
+      py={6}
+      px={10}
+      bg="black"
     >
       <Container centerContent>
         <Box fontWeight="bold">Metcon Cross</Box>
       </Container>
-      <Stack direction="row" spacing={4}>
+      <HStack direction="row" spacing={4}>
         <Link to="/home">Página inicial</Link>
         <Link to="/about">Sobre nós</Link>
         <Link to="/contact">Contato</Link>
-      </Stack>
+      </HStack>
     </Flex>
   );
 };
