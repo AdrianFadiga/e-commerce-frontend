@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {
   Box,
   Flex,
@@ -7,20 +6,16 @@ import {
   Tabs,
 } from '@chakra-ui/react';
 import React from 'react';
-import { requestApi } from '../../services';
 import { ICategory } from '../../interfaces/ICategory';
 
+interface CustomerPageProps {
+  categories: ICategory[]
+  setCategoryId: (value: string) => void;
+}
 
 
-const Navbar: React.FC = () => {
-  const [categories, setCategories] = useState<ICategory[]>([]);
-  const getCategories =  async () => {
-    const {data} = await requestApi<ICategory[]>({method: 'get', url: '/categories'});
-    setCategories(data);
-  };
-  useEffect(() => {
-    getCategories();
-  }, []);
+const Navbar: React.FC<CustomerPageProps> = ({setCategoryId, categories}) => {
+
   return (
     <Flex
       as="nav"
@@ -37,7 +32,12 @@ const Navbar: React.FC = () => {
         <Tabs variant='soft-rounded' colorScheme='green'>
           <TabList>
             {categories.map(({id, name}) => (
-              <Tab key={id}>{name}</Tab>
+              <Tab 
+                key={id}
+                onClick={() => setCategoryId(id)}
+              >
+                {name}
+              </Tab>
             ))}
           </TabList>
         </Tabs>
