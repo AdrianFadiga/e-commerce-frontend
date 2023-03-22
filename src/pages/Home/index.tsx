@@ -53,6 +53,7 @@ const Home: React.FC = () => {
                 name={name}
                 price={price}
                 description={description}
+                product_id={id}
               />
             ))}
           </SimpleGrid>
