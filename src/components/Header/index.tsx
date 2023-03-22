@@ -1,7 +1,10 @@
 import { Box, Container, Flex, HStack } from '@chakra-ui/react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { IUserContext, UserContext } from '../../context/UserContext';
 
 const Header = () => {
+  const {loggedIn} = useContext(UserContext) as IUserContext;
   return (
     <Flex
       as="header"
@@ -19,8 +22,12 @@ const Header = () => {
       </Container>
       <HStack direction="row" spacing={4}>
         <Link to="/home">Página inicial</Link>
-        <Link to="/about">Sobre nós</Link>
-        <Link to="/contact">Contato</Link>
+        {
+          loggedIn ? 
+            <Link to="/cart">Carrinho</Link>
+            :
+            <Link to="/Login">Login</Link>
+        }
       </HStack>
     </Flex>
   );
