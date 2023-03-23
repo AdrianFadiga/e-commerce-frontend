@@ -53,7 +53,7 @@ const Home: React.FC = () => {
           w='80%'
         >
           <SimpleGrid 
-            columns={{ sm: 2, md: 4, lg: 5, xl: 6, '2xl': 8 }} 
+            columns={{ sm: 2, md: 4, lg: 5, xl: 6, '2xl': 7 }} 
             gap="20px"
           >
             {products.map(({ id, name, price }) => (

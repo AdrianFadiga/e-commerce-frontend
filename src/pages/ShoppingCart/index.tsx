@@ -1,4 +1,4 @@
-import { SimpleGrid } from '@chakra-ui/react';
+import { Flex, SimpleGrid } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import CustomerPage from '../../components/CustomerPage';
 import ProductCard from '../../components/ProductCard';
@@ -39,22 +39,30 @@ const ShoppingCart = () => {
   }, []);
   return (
     <CustomerPage>
-      <SimpleGrid 
-        columns={{ sm: 2, md: 4, lg: 5, xl: 6, '2xl': 8 }} 
-        gap="20px"
+      <Flex
+        justifyContent="space-around"
       >
-        {shoppingCartProducts.map(({quantity, product: {id, name, price}}) => (
-          <ProductCard 
-            key={id}
-            product_id={id}
-            name={name}
-            price={price}
-            product_quantity={quantity}
-            handleUpdate={handleUpdate}
-            handleDelete={handleDelete}
-          />
-        ))}
-      </SimpleGrid>
+        <Flex
+          w='80%'
+        >
+          <SimpleGrid 
+            columns={{ sm: 2, md: 4, lg: 5, xl: 6, '2xl': 7 }} 
+            gap="20px"
+          >
+            {shoppingCartProducts.map(({quantity, product: {id, name, price}}) => (
+              <ProductCard 
+                key={id}
+                product_id={id}
+                name={name}
+                price={price}
+                product_quantity={quantity}
+                handleUpdate={handleUpdate}
+                handleDelete={handleDelete}
+              />
+            ))}
+          </SimpleGrid>
+        </Flex>
+      </Flex>
     </CustomerPage>
   );
 };
