@@ -13,25 +13,27 @@ import {
 import { useState } from 'react';
 
 import {BsCartPlusFill} from 'react-icons/bs';
-import { requestApi } from '../../services';
+import {AiFillDelete} from 'react-icons/ai';
 
 interface ProductCard {
   name: string
-  description: string
   price: number
   product_id: string
+  product_quantity?: number
+  handleUpdate: (product_id: string, quantity: number) => void,
+  hasDelete?: boolean,
+  handleDelete?: (product_id: string) => void,
 }
 
-const ProductCard: React.FC<ProductCard> =({name, description, price, product_id}) => {
-  const [quantity, setQuantity] = useState<number>(1);
-  const addToCart = async () => {
-    try {
-      const accessToken = JSON.parse(localStorage.getItem('accessToken') as string);
-      await requestApi({method: 'PUT', url: '/v1/shopping_carts', headers: {...accessToken}, data: {product_id, quantity}});
-    } catch (err: any) {
-      console.log(err.data);
-    }
-  };
+const ProductCard: React.FC<ProductCard> =({
+  name, 
+  price, 
+  product_id, 
+  product_quantity = 1,
+  handleUpdate,
+  handleDelete,
+}) => {
+  const [quantity, setQuantity] = useState<number>(product_quantity);
   return (
     <Card maxW="sm">
       <CardBody>
@@ -41,9 +43,6 @@ const ProductCard: React.FC<ProductCard> =({name, description, price, product_id
         />
         <Stack mt="6" spacing="3">
           <Heading size="md">{name}</Heading>
-          <Text>
-            {description}
-          </Text>
           <Text color="blue.600" fontSize="2xl">
             {price}
           </Text>
@@ -73,10 +72,19 @@ const ProductCard: React.FC<ProductCard> =({name, description, price, product_id
           <Button 
             variant="ghost" 
             colorScheme="blue"
-            onClick={() => addToCart()}
+            onClick={() => handleUpdate(product_id, quantity)}
           >
             <BsCartPlusFill />
           </Button>
+          {handleDelete &&
+          <Button 
+            variant="ghost" 
+            colorScheme="red"
+            onClick={() => handleDelete(product_id)}
+          >
+            <AiFillDelete />
+          </Button>
+          }
         </ButtonGroup>
       </CardFooter>
     </Card>
