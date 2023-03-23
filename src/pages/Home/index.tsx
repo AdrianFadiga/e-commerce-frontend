@@ -31,6 +31,15 @@ const Home: React.FC = () => {
     getCategories();
   }, []);
 
+  const handleUpdate = async (product_id: string, quantity: number) => {
+    try {
+      const accessToken = JSON.parse(localStorage.getItem('accessToken') as string);
+      await requestApi({method: 'PUT', url: '/v1/shopping_carts', headers: {...accessToken}, data: {product_id, quantity}});
+    } catch (err: any) {
+      console.log(err.data);
+    }
+  };
+
   return (
     <CustomerPage>
       <Navbar 
@@ -47,13 +56,13 @@ const Home: React.FC = () => {
             columns={{ sm: 2, md: 4, lg: 5, xl: 6, '2xl': 8 }} 
             gap="20px"
           >
-            {products.map(({ id, name, price, description }) => (
+            {products.map(({ id, name, price }) => (
               <ProductCard
                 key={id}
                 name={name}
                 price={price}
-                description={description}
                 product_id={id}
+                handleUpdate={handleUpdate}
               />
             ))}
           </SimpleGrid>
